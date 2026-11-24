@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OwnerOrderController;
 
 // Register
 Route::post('/register', [RegisteredUserController::class, 'store']);
@@ -25,6 +27,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/menus', [MenuController::class, 'store']);
         Route::put('/menus/{menu}', [MenuController::class, 'update']);
         Route::delete('/menus/{menu}', [MenuController::class, 'destroy']);
+        Route::get('/owner/orders', [OwnerOrderController::class, 'index']);
+        Route::get('/owner/orders/{order}', [OwnerOrderController::class, 'show']);
+        Route::patch('/owner/orders/{order}/status', [OwnerOrderController::class, 'updateStatus']);
     });
 
     // Cart: Hanya User yang bisa mengelola keranjang
@@ -33,6 +38,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/cart/items', [CartController::class, 'store']);
         Route::put('/cart/items/{cartItem}', [CartController::class, 'update']);
         Route::delete('/cart/items/{cartItem}', [CartController::class, 'destroy']);
+        Route::get('/orders', [OrderController::class, 'index']);
+        Route::post('/orders/checkout', [OrderController::class, 'store']);
+        Route::get('/orders/{order}', [OrderController::class, 'show']);
     });
 
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
