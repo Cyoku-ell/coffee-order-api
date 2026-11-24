@@ -16,9 +16,7 @@ class OwnerSeeder extends Seeder
             ],
             [
                 'name' => 'Coffee Shop Owner',
-                'password' => Hash::make(
-                    env('OWNER_PASSWORD', 'password')
-                ),
+                'password' => Hash::make('12345678'),
             ]
         );
 
